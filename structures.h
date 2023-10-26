@@ -39,4 +39,4 @@ void cleanOldPositions(typeSnake *snake);
 void foodMovement(typeFood *food, typeSnake *snake);
 int movement(typeSnake *snake, typeFood *food);
 
-void drawGame();
+int drawGame(int record;);
