@@ -2,12 +2,9 @@
 
 
 //
-char mesg[]="Tela do jogo"; //message to be appeared on the screen
+char mesg[]="Snake Game"; //message to be appeared on the screen
 int row,col; //to store the number of rows and the number of colums of the screen
-char saida=' ', opcao;
-
-int limpaX;
-int limpaY;
+char input=' ', option;
 
 
 
@@ -38,13 +35,10 @@ void drawGame(){
     setup(&snake);
 
 
-
-    while(saida!='q'){
+    while(input!='q'){
         // @************** draw the snake on screen **************@
-        
         //draw the snake head
         mvprintw(snake.head.posY, snake.head.posX, "%c", snake.headDraw);
-        
         //draw the snake body
         if(snake.body.qntParts > 0){
             for(i=0; i<snake.body.qntParts; i++){
@@ -54,10 +48,12 @@ void drawGame(){
         }
 
 
+
         // @************** write the informations on screen **************@
         mvprintw(row/2,(col-strlen(mesg))/2,"%s",mesg); //print the message at the center of the screen */
         mvprintw(row-2,0,"This screen has %d rows and %d columns\n", row,col);
-        mvprintw(row-2,col-13,"BodyParts: %d\n", snake.body.qntParts);
+        mvprintw(row-2,col-14,"BodyParts: %d\n", snake.body.qntParts);
+
 
 
         //@************** write the changes on screen **************@
@@ -65,43 +61,50 @@ void drawGame(){
         usleep(100000);
 
 
+
         //@************** catch the input from keyboard **************@
         //if the input is one of the options, it passes to 'option', which will movement the positions
-        saida = getch();
-        if(saida=='w' || saida=='s' || saida=='a' || saida=='d'){
-            opcao = saida;
+        input = getch();
+        if(input=='w' || input=='s' || input=='a' || input=='d'){
+            option = input;
         }
-        else if(saida=='h'){ //only for testing, remember to change later
+        else if(input=='h'){ //only for testing, remember to change later
             snake.body.qntParts++;
         }
 
 
-        //
+
+        //@************** Clean the old positions
         for(i=0; i<snake.body.qntParts; i++){
-            mvprintw(snake.body.bodyPart[snake.body.qntParts-1].posY, snake.body.bodyPart[snake.body.qntParts-1].posX, " ");
+            mvprintw(snake.body.bodyPart[i].posY, snake.body.bodyPart[i].posX, " ");
+        }
+        if(option=='w' || option=='s' || option=='a' || option=='d'){
+            mvprintw(snake.head.posY, snake.head.posX, " ");
+        }
+
+
+
+        //@************** Movement
+        //body movement
+        for(i=snake.body.qntParts; i>0; i--){
+            snake.body.bodyPart[i] = snake.body.bodyPart[i-1];
         }
         snake.body.bodyPart[0] = snake.head;
-
-        
-        switch(opcao){
+        //head movement
+        switch(option){
             case 'w': //up
-                mvprintw(snake.head.posY, snake.head.posX, " ");
                 snake.head.posY--;
                 break;
             case 's': //down
-                mvprintw(snake.head.posY, snake.head.posX, " ");
                 snake.head.posY++;
                 break;
             case 'a': //left
-                mvprintw(snake.head.posY, snake.head.posX, " ");
                 snake.head.posX = snake.head.posX-2;
                 break;
             case 'd': //right
-                mvprintw(snake.head.posY, snake.head.posX, " ");
                 snake.head.posX = snake.head.posX+2;
                 break;
         }
-
         //reset positions if get out of window
         if(snake.head.posX > col){
             snake.head.posX = 0;
@@ -116,7 +119,6 @@ void drawGame(){
             snake.head.posY = row;
         }
 
-        //snake.body.bodyPart[0] = snake.head;
 
     }
     
