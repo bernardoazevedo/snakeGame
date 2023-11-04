@@ -4,7 +4,7 @@
 ### To run on Linux:
 #### Debian/Ubuntu based distros:
   - Download the zip source code and extract it.
-  - Execute the "install.sh" - it will install the necessary programs and compile the game.
+  - Execute the "install.sh" (probably you will need allow executing this file as program) - it will install the necessary programs and compile the game.
   - To run, open the terminal in the game directory and type "./snakeGane".
 
 ### To run on Windows:
