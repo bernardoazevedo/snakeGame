@@ -28,6 +28,7 @@ int main(){
 
         printf("\nWould you like to play again?\n");
         printf("[Y]/[N]: ");
+        getch();
         scanf(" %c", &getOut);
 
         if(score>highScore){
