@@ -1,17 +1,23 @@
-### Snake Game 0.5
+# Snake Game 0.5
 
 
-### To run:
-# Compile:
-  - gcc -Wall main.c functions.c structures.h -lncurses
+### To run on Linux:
+#### Debian/Ubuntu based distros:
+  - Download the zip source code and extract it.
+  - Execute the "install.sh" - it will install the necessary programs and compile the game.
+  - To run, open the terminal in the game directory and type "./snakeGane".
+
+### To run on Windows:
+  - This game was developed to run on linux, but you can install WSL2 in your system and run using it.
+  - Once you have a distro installed with WSL, you only need to follow the tutorial above to your distro.
 
 
 ### To do:
-  - Make an install.sh and a tutorial for run
-  - Store the player name and score record with data persistency
-  - Organize the code
+  - Store the player name and score record with data persistency.
+  - Organize the code.
 
 ### Problems solved:
-  - Physics of body and body parts
-  - Store the record in memory
-  - Fix the loop to play again: needs to clean the informations of end game before start again
+  - Physics of body and body parts.
+  - Store the record in memory.
+  - Fix the loop to play again: needs to clean the informations of end game before start again.
+  - Make an install.sh and a tutorial for run.
