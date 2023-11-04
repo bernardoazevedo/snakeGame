@@ -5,7 +5,7 @@
 #### Debian/Ubuntu based distros:
   - Download the zip source code and extract it.
   - Execute the "install.sh" (probably you will need allow executing this file as program) - it will install the necessary programs and compile the game.
-  - To run, open the terminal in the game directory and type "./snakeGane".
+  - To run, open the terminal in the game directory and type "./snakeGame".
 
 ### To run on Windows:
   - This game was developed to run on linux, but you can install WSL2 in your system and run using it.
