@@ -33,10 +33,10 @@ void writeGameInfos(typeSnake *snake, typeFood *food);
 void writeSnakeAndFood(typeSnake *snake, typeFood *food);
 void writeScreen(typeSnake *snake, typeFood *food);
 
-void cleanOldPositions(typeSnake *snake);
+void cleanSnakeOldPositions(typeSnake *snake);
 
 
 void foodMovement(typeFood *food, typeSnake *snake);
 int movement(typeSnake *snake, typeFood *food);
 
-int drawGame(int record;);
+int drawGame(int highScore;);

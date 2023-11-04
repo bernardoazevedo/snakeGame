@@ -68,7 +68,7 @@ void writeGameInfos(typeSnake *snake, typeFood *food){ //write the informations 
     //mvprintw(row-2,0,"This screen has %d rows and %d columns\n", row,col);
 
     mvprintw(row-2,0,"Score: %d\n", snake->body.qntParts); //for testing, can be the score! -yes, the score!
-    mvprintw(row-1,0,"Record: %d\n", snake->body.qntParts); //the best
+    mvprintw(row-1,0,"highScore: %d\n", snake->body.qntParts); //the best
 }
 
 
@@ -96,7 +96,7 @@ void writeScreen(typeSnake *snake, typeFood *food){ // write the game
 }
 
 
-void cleanOldPositions(typeSnake *snake){ // cleaning the old positions
+void cleanSnakeOldPositions(typeSnake *snake){ // cleaning the snake old positions
     // clean the body
     int i;
 
@@ -108,6 +108,10 @@ void cleanOldPositions(typeSnake *snake){ // cleaning the old positions
     if(option=='w' || option=='s' || option=='a' || option=='d'){
         mvprintw(snake->head.posY, snake->head.posX, " ");
     }
+}
+
+void cleanFoodPosition(typeFood *food){ // clean the food position
+    mvprintw(food->position.posY, food->position.posX, " ");
 }
 
 void foodMovement(typeFood *food, typeSnake *snake){ // do the moviment logic of food
@@ -214,7 +218,7 @@ int movement(typeSnake *snake, typeFood *food){ // movement of snake head, snake
 }
 
 
-int drawGame(int record){
+int drawGame(int highScore){
     typeSnake snake;
     typeFood food;
 
@@ -239,20 +243,21 @@ int drawGame(int record){
         }
 
 
-        cleanOldPositions(&snake);
+        cleanSnakeOldPositions(&snake);
 
-        if(movement(&snake, &food) == 1){
+        if(movement(&snake, &food) == 1){ //if the head collides with the body or wall, the game will end and the food position will be cleaned
             input = 'q';
+            cleanFoodPosition(&food); 
         }
     }
 
     // print the results
-    mvprintw(row/2,(col-strlen("Game Over"))/2,"Game Over");
-    mvprintw((row/2)+2, (col-strlen("Score: 100"))/2, "Score: %d", snake.body.qntParts);
-    mvprintw((row/2)+3, (col-strlen("Record: 100"))/2, "Record: %d", record); //the best
+    // mvprintw(row/2,(col-strlen("Game Over"))/2,"Game Over");
+    // mvprintw((row/2)+2, (col-strlen("Score: 100"))/2, "Score: %d", snake.body.qntParts);
+    // mvprintw((row/2)+3, (col-strlen("highScore: 100"))/2, "highScore: %d", highScore); //the best
 
     refresh();
-    usleep(4000000);
+    usleep(1000000);
 
     endwin(); //end curses mode
     return snake.body.qntParts;
