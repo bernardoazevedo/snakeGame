@@ -1,5 +1,7 @@
 # Snake Game 0.5
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ReadMe in english:
 
 ### To run on Linux:
@@ -23,6 +25,7 @@ ReadMe in english:
   - Fix the loop to play again: needs to clean the informations of end game before start again.
   - Make an "install.sh" and a tutorial for run.
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ReadMe em Português:
 
