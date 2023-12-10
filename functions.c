@@ -59,7 +59,7 @@ void setup(typeSnake *snake, typeFood *food){
 }
 
 
-void writeGameInfos(typeSnake *snake, typeFood *food){ //write the informations on screen
+void writeGameInfos(typeSnake *snake, typeFood *food, int highScore){ //write the informations on screen
     //mvprintw(row/2,(col-strlen(mesg))/2,"%s",mesg); //print the message at the center of the screen */
     //mvprintw(row-6,0,"Head col: %d\n", snake->head.posX);
     //mvprintw(row-5,0,"Head row: %d\n", snake->head.posY);
@@ -68,7 +68,7 @@ void writeGameInfos(typeSnake *snake, typeFood *food){ //write the informations 
     //mvprintw(row-2,0,"This screen has %d rows and %d columns\n", row,col);
 
     mvprintw(row-2,0,"Score: %d\n", snake->body.qntParts); //for testing, can be the score! -yes, the score!
-    mvprintw(row-1,0,"highScore: %d\n", snake->body.qntParts); //the best
+    mvprintw(row-1,0,"highScore: %d\n", highScore); //the best
 }
 
 
@@ -90,8 +90,8 @@ void writeSnakeAndFood(typeSnake *snake, typeFood *food){ //draw the snake and t
     mvprintw(row-1, col-1, " "); // only for move the cursor to the end of the screen
 }
 
-void writeScreen(typeSnake *snake, typeFood *food){ // write the game
-    writeGameInfos(snake, food);
+void writeScreen(typeSnake *snake, typeFood *food, int highScore){ // write the game
+    writeGameInfos(snake, food, highScore);
     writeSnakeAndFood(snake, food);
 }
 
@@ -225,7 +225,7 @@ int drawGame(int highScore){
     setup(&snake, &food);
 
     while(input!='q'){
-        writeScreen(&snake, &food);
+        writeScreen(&snake, &food, highScore);
 
         //write the changes on screen
         refresh();

@@ -29,9 +29,9 @@ typedef struct food{
 void initGraphics();
 void setup(typeSnake *snake, typeFood *food);
 
-void writeGameInfos(typeSnake *snake, typeFood *food);
+void writeGameInfos(typeSnake *snake, typeFood *food, int highscore);
 void writeSnakeAndFood(typeSnake *snake, typeFood *food);
-void writeScreen(typeSnake *snake, typeFood *food);
+void writeScreen(typeSnake *snake, typeFood *food, int highscore);
 
 void cleanSnakeOldPositions(typeSnake *snake);
 
