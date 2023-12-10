@@ -87,7 +87,7 @@ void writeSnakeAndFood(typeSnake *snake, typeFood *food){ //draw the snake and t
 
     // draw the food
     mvprintw(food->position.posY, food->position.posX, "%c", food->foodDraw);
-    mvprintw(row+1, col+1, " "); // only for move the cursor to the end of the screen
+    mvprintw(row-1, col-1, " "); // only for move the cursor to the end of the screen
 }
 
 void writeScreen(typeSnake *snake, typeFood *food){ // write the game
