@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+
 typedef struct position{
     int posX;
     int posY;
@@ -26,6 +27,7 @@ typedef struct food{
     typePosition position;
 }typeFood;
 
+
 void initGraphics();
 void gameSetup();
 typeSnake snakeSetup();
@@ -38,6 +40,8 @@ void writeScreen(typeSnake snake, typeFood food, int highscore);
 
 void cleanSnakeOldPositions(typeSnake snake);
 void cleanFoodPosition(typeFood food);
+
+void catchInput();
 
 void foodMovement(typeFood *food, typeSnake *snake);
 int movement(typeSnake *snake, typeFood *food);

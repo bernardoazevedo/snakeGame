@@ -217,6 +217,17 @@ int movement(typeSnake *snake, typeFood *food){ // movement of snake head, snake
     return 0;
 }
 
+void catchInput(){
+    //catch the input from keyboard
+    //if the input is one of the options, it passes to 'option', which will movement the positions
+    input = getch();
+    if(input=='w' || input=='s' || input=='a' || input=='d'){
+        //this don't allow the snake to turn 180º at once time
+        if(!(option=='w' && input=='s') && !(option=='s' && input=='w') && !(option=='a' && input=='d') && !(option=='d' && input=='a')){
+            option = input;
+        }
+    }
+}
 
 int drawGame(int highScore){
     typeSnake snake;
@@ -227,27 +238,17 @@ int drawGame(int highScore){
     food = foodSetup();
 
     while(input!='q'){
-        writeScreen(snake, food, highScore);
-
         //write the changes on screen
+        writeScreen(snake, food, highScore);
         refresh();
         usleep(100000);
 
-
-        //catch the input from keyboard
-        //if the input is one of the options, it passes to 'option', which will movement the positions
-        input = getch();
-        if(input=='w' || input=='s' || input=='a' || input=='d'){
-            //this don't allow the snake to turn 180º at once time
-            if(!(option=='w' && input=='s') && !(option=='s' && input=='w') && !(option=='a' && input=='d') && !(option=='d' && input=='a')){
-                option = input;
-            }
-        }
-
+        catchInput();
 
         cleanSnakeOldPositions(snake);
 
-        if(movement(&snake, &food) == 1){ //if the head collides with the body or wall, the game will end and the food position will be cleaned
+        //if the head collides with the body or wall, the game will end and the food position will be cleaned
+        if(movement(&snake, &food) == 1){ 
             input = 'q';
             cleanFoodPosition(food); 
         }
