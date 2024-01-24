@@ -27,14 +27,17 @@ typedef struct food{
 }typeFood;
 
 void initGraphics();
-void setup(typeSnake *snake, typeFood *food);
+void gameSetup();
+typeSnake snakeSetup();
+typeFood foodSetup();
 
-void writeGameInfos(typeSnake *snake, typeFood *food, int highscore);
-void writeSnakeAndFood(typeSnake *snake, typeFood *food);
-void writeScreen(typeSnake *snake, typeFood *food, int highscore);
+void drawGameInfos(typeSnake snake, typeFood food, int highscore);
+void drawSnake(typeSnake snake);
+void drawFood(typeFood food);
+void writeScreen(typeSnake snake, typeFood food, int highscore);
 
-void cleanSnakeOldPositions(typeSnake *snake);
-
+void cleanSnakeOldPositions(typeSnake snake);
+void cleanFoodPosition(typeFood food);
 
 void foodMovement(typeFood *food, typeSnake *snake);
 int movement(typeSnake *snake, typeFood *food);

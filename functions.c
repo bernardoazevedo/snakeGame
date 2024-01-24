@@ -1,11 +1,9 @@
 #include "structures.h"
 
 
-
 char mesg[]="Snake Game"; //message to be appeared on the screen
 int row,col; //to store the number of rows and the number of colums of the screen
 char input, option;
-
 
 
 void initGraphics(){
@@ -18,100 +16,102 @@ void initGraphics(){
     getmaxyx(stdscr, row, col); //get the number of rows and columns
 }
 
-void setup(typeSnake *snake, typeFood *food){
+typeSnake snakeSetup(){
     int i=0;
+    typeSnake snake;
 
-    // setting all to 0 or null
-    input=' ';
-    option=' ';
-    snake->head.posX = 0;
-    snake->head.posY = 0;
-    snake->body.qntParts = 0;
+    //setting positions to 0
+    snake.head.posX = 0;
+    snake.head.posY = 0;
+    snake.body.qntParts = 0;
     for(i=0; i<1000; i++){
-        snake->body.bodyPart[i].posX = 0;
-        snake->body.bodyPart[i].posY = 0;
+        snake.body.bodyPart[i].posX = 0;
+        snake.body.bodyPart[i].posY = 0;
     }
-    food->position.posX = 0;
-    food->position.posY = 0;
 
-
-    // snake setup ***************************************@
     //set the chars that represents each snake part 
-    snake->headDraw = '@';
-    snake->bodyDraw = 'o';
+    snake.headDraw = '@';
+    snake.bodyDraw = 'o';
     //set the initial positions
-    snake->head.posX = 0;
-    snake->head.posY = 0;
-    snake->body.qntParts = 0;
-    // snake setup ***************************************@
+    snake.head.posX = 0;
+    snake.head.posY = 0;
+    snake.body.qntParts = 0;
 
+    return snake;
+}
 
-    // food setup ***************************************@
-    food->foodDraw = '*';
+typeFood foodSetup(){
+    typeFood food;
 
-    food->position.posX = col-(col/2); // since x position runs from 2 to 2, the food posX can't be odd
-    if((food->position.posX % 2) != 0){
-        food->position.posX--;
+    //setting positions to 0
+    food.position.posX = 0;
+    food.position.posY = 0;
+
+    //the char that represents the food
+    food.foodDraw = '*';
+
+    food.position.posX = col-(col/2); // since x position runs from 2 to 2, the food posX can't be odd
+    if((food.position.posX % 2) != 0){
+        food.position.posX--;
     }
     
-    food->position.posY = row-(row/2);
-    // food setup ***************************************@
+    food.position.posY = row-(row/2);
+
+    return food;
+}
+
+void gameSetup(){
+    input=' ';
+    option=' ';
 }
 
 
-void writeGameInfos(typeSnake *snake, typeFood *food, int highScore){ //write the informations on screen
-    //mvprintw(row/2,(col-strlen(mesg))/2,"%s",mesg); //print the message at the center of the screen */
-    //mvprintw(row-6,0,"Head col: %d\n", snake->head.posX);
-    //mvprintw(row-5,0,"Head row: %d\n", snake->head.posY);
-    //mvprintw(row-4,0,"Food col: %d\n", food->position.posX);
-    //mvprintw(row-3,0,"Food row: %d\n", food->position.posY);        
-    //mvprintw(row-2,0,"This screen has %d rows and %d columns\n", row,col);
-
-    mvprintw(row-2,0,"Score: %d\n", snake->body.qntParts); //for testing, can be the score! -yes, the score!
+void drawGameInfos(typeSnake snake, typeFood food, int highScore){ //write the informations on screen
+    mvprintw(row-2,0,"Score: %d\n", snake.body.qntParts); //for testing, can be the score! -yes, the score!
     mvprintw(row-1,0,"highScore: %d\n", highScore); //the best
 }
 
-
-void writeSnakeAndFood(typeSnake *snake, typeFood *food){ //draw the snake and the food
+void drawSnake(typeSnake snake){
     // draw the snake head
     int i;
 
-    mvprintw(snake->head.posY, snake->head.posX, "%c", snake->headDraw);
+    mvprintw(snake.head.posY, snake.head.posX, "%c", snake.headDraw);
 
     // draw the snake body
-    if(snake->body.qntParts > 0){
-        for(i=0; i<snake->body.qntParts; i++){
-            mvprintw(snake->body.bodyPart[i].posY, snake->body.bodyPart[i].posX, "%c", snake->bodyDraw);
+    if(snake.body.qntParts > 0){
+        for(i=0; i<snake.body.qntParts; i++){
+            mvprintw(snake.body.bodyPart[i].posY, snake.body.bodyPart[i].posX, "%c", snake.bodyDraw);
         }
     }
+}
 
-    // draw the food
-    mvprintw(food->position.posY, food->position.posX, "%c", food->foodDraw);
+void drawFood(typeFood food){
+    mvprintw(food.position.posY, food.position.posX, "%c", food.foodDraw);
     mvprintw(row-1, col-1, " "); // only for move the cursor to the end of the screen
 }
 
-void writeScreen(typeSnake *snake, typeFood *food, int highScore){ // write the game
-    writeGameInfos(snake, food, highScore);
-    writeSnakeAndFood(snake, food);
+void writeScreen(typeSnake snake, typeFood food, int highScore){ // write the game
+    drawGameInfos(snake, food, highScore);
+    drawSnake(snake);
+    drawFood(food);
 }
 
-
-void cleanSnakeOldPositions(typeSnake *snake){ // cleaning the snake old positions
+void cleanSnakeOldPositions(typeSnake snake){ // cleaning the snake old positions
     // clean the body
     int i;
 
-    for(i=0; i<snake->body.qntParts; i++){
-        mvprintw(snake->body.bodyPart[i].posY, snake->body.bodyPart[i].posX, " ");
+    for(i=0; i<snake.body.qntParts; i++){
+        mvprintw(snake.body.bodyPart[i].posY, snake.body.bodyPart[i].posX, " ");
     }
 
     // clean the head
     if(option=='w' || option=='s' || option=='a' || option=='d'){
-        mvprintw(snake->head.posY, snake->head.posX, " ");
+        mvprintw(snake.head.posY, snake.head.posX, " ");
     }
 }
 
-void cleanFoodPosition(typeFood *food){ // clean the food position
-    mvprintw(food->position.posY, food->position.posX, " ");
+void cleanFoodPosition(typeFood food){ // clean the food position
+    mvprintw(food.position.posY, food.position.posX, " ");
 }
 
 void foodMovement(typeFood *food, typeSnake *snake){ // do the moviment logic of food
@@ -163,7 +163,7 @@ int movement(typeSnake *snake, typeFood *food){ // movement of snake head, snake
         }
     }
 
-    //food movement
+    //if the snake eat the food, food movements
     if((snake->head.posX == food->position.posX) && (snake->head.posY == food->position.posY)){
         foodMovement(food, snake);
         if(snake->body.qntParts<1000){
@@ -222,10 +222,12 @@ int drawGame(int highScore){
     typeSnake snake;
     typeFood food;
 
-    setup(&snake, &food);
+    gameSetup();
+    snake = snakeSetup();
+    food = foodSetup();
 
     while(input!='q'){
-        writeScreen(&snake, &food, highScore);
+        writeScreen(snake, food, highScore);
 
         //write the changes on screen
         refresh();
@@ -243,18 +245,13 @@ int drawGame(int highScore){
         }
 
 
-        cleanSnakeOldPositions(&snake);
+        cleanSnakeOldPositions(snake);
 
         if(movement(&snake, &food) == 1){ //if the head collides with the body or wall, the game will end and the food position will be cleaned
             input = 'q';
-            cleanFoodPosition(&food); 
+            cleanFoodPosition(food); 
         }
     }
-
-    // print the results
-    // mvprintw(row/2,(col-strlen("Game Over"))/2,"Game Over");
-    // mvprintw((row/2)+2, (col-strlen("Score: 100"))/2, "Score: %d", snake.body.qntParts);
-    // mvprintw((row/2)+3, (col-strlen("highScore: 100"))/2, "highScore: %d", highScore); //the best
 
     refresh();
     usleep(1000000);
