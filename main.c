@@ -1,5 +1,6 @@
 #include "structures.h"
 
+
 int main(){
     char getOut;
     int score=0, highScore=0;

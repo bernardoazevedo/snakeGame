@@ -46,4 +46,4 @@ void catchInput();
 void foodMovement(typeFood *food, typeSnake *snake);
 int movement(typeSnake *snake, typeFood *food);
 
-int drawGame(int highScore;);
+int drawGame(int highScore);
