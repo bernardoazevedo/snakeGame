@@ -232,6 +232,8 @@ void catchInput(){
 int drawGame(int highScore){
     typeSnake snake;
     typeFood food;
+    const int refreshWaitingTime = 100000; //the time it takes before refresh screen 
+    const int endWaitingTime = 1000000; //the time it takes before finish the game 
 
     gameSetup();
     snake = snakeSetup();
@@ -241,7 +243,7 @@ int drawGame(int highScore){
         //write the changes on screen
         writeScreen(snake, food, highScore);
         refresh();
-        usleep(100000);
+        usleep(refreshWaitingTime); 
 
         catchInput();
 
@@ -255,7 +257,7 @@ int drawGame(int highScore){
     }
 
     refresh();
-    usleep(1000000);
+    usleep(endWaitingTime);
 
     endwin(); //end curses mode
     return snake.body.qntParts;
