@@ -12,7 +12,7 @@ ReadMe in english:
 
 ### To run on Windows:
   - This game was developed to run on linux, but you can install WSL in your system and run using it.
-  - Once you have a distro installed with WSL, you only need to follow the tutorial above to your distro.
+  - Once you have a distro installed with WSL, you just need to follow the tutorial above to your distro.
 
 
 ### To do:
